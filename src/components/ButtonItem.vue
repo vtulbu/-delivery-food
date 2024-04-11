@@ -28,6 +28,7 @@ button {
   border: 1px solid var(--light-silver);
   border-radius: 2px;
   line-height: 24px;
+  font-weight: 600;
 }
 
 .primary {
@@ -40,5 +41,11 @@ button {
   background: var(--secondary);
   border: 1px solid var(--secondary);
   color: var(--black);
+}
+
+span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

@@ -1,38 +1,33 @@
 :root {
-  --white: #fff;
-  --black: #000;
-  --light-silver: #d9d9d9;
   --primary: #1890ff;
   --secondary: #fff1b8;
+
+  --white: #fff;
+  --black: #000;
+
+  --light-silver: #d9d9d9;
+  --dark-charcoal: #30342c;
 
   --normal-font-size: 1rem;
   --max-width: 1200px;
 }
 body {
   min-height: 100vh;
-  /* color: var(--color-text);
-  background: var(--color-background); */
-  /* font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif; */
+  font-family: 'Roboto', sans-serif;
   font-size: var(--normal-font-size);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 40px;
+  padding: 40px 20px;
   min-width: 375px;
 }
 
 a {
   text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  body {
+    padding: 40px;
+  }
 }

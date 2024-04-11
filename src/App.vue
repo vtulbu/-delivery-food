@@ -6,7 +6,15 @@ import { Header } from '@components'
 
 <template>
   <Header />
-  <RouterView />
+  <main>
+    <RouterView />
+  </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 40px 0;
+}
+</style>
