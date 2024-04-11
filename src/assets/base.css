@@ -1,11 +1,13 @@
-/* color palette from <https://github.com/vuejs/theme> */
 :root {
-}
+  --white: #fff;
+  --black: #000;
+  --light-silver: #d9d9d9;
+  --primary: #1890ff;
+  --secondary: #fff1b8;
 
-/* semantic color variables for this project */
-:root {
+  --normal-font-size: 1rem;
+  --max-width: 1200px;
 }
-
 body {
   min-height: 100vh;
   /* color: var(--color-text);
@@ -23,9 +25,12 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif; */
+  font-size: var(--normal-font-size);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 40px;
+  min-width: 375px;
 }
 
 a {
