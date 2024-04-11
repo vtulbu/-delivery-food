@@ -1,10 +1,62 @@
 <script setup lang="ts">
-import { Hero, PartnersContainer } from '@/components'
+import { ref, onMounted } from 'vue'
+import { Hero, PartnersContainer, PartnerCard } from '@/components'
+import type { PartnerInfo } from '@/types'
+
+const infoPartners = ref<PartnerInfo[] | undefined>(undefined)
+
+onMounted(() => {
+  import('@/db/partners.json').then((module) => {
+    infoPartners.value = module.partners
+  })
+})
 </script>
 
 <template>
   <Hero />
   <PartnersContainer>
-    <div>test</div>
+    <Transition>
+      <div v-if="infoPartners">
+        <PartnerCard
+          v-for="{ products, ...rest } in infoPartners"
+          :key="rest.name"
+          v-bind="{
+            to: products.split('.')[0],
+            ...rest
+          }"
+        />
+      </div>
+    </Transition>
   </PartnersContainer>
 </template>
+
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: transform 0.8s;
+}
+
+.v-enter-from,
+.v-leave-to {
+  transform: translateY(100%);
+}
+
+@media (min-width: 624px) {
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  div a {
+    flex-basis: 49%;
+  }
+}
+
+@media (min-width: 1024px) {
+  div a {
+    flex-basis: 32%;
+  }
+}
+</style>

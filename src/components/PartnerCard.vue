@@ -1,0 +1,64 @@
+<script setup lang="ts">
+import { Rating, LazyLoadingImage, CardHeading, PriceKitchen } from '@/components'
+
+defineProps<{
+  name: string
+  time_of_delivery: number
+  stars: number
+  price: number
+  kitchen: string
+  image: string
+  to: string
+}>()
+</script>
+
+<template>
+  <RouterLink :to>
+    <LazyLoadingImage :src="image" :alt="name" class="image-card" />
+    <div class="container-card">
+      <CardHeading
+        v-bind="{
+          name,
+          time_of_delivery
+        }"
+      />
+      <Rating :stars />
+      <PriceKitchen
+        v-bind="{
+          price,
+          kitchen
+        }"
+      />
+    </div>
+  </RouterLink>
+</template>
+
+<style scoped>
+a {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  margin-bottom: 30px;
+  text-decoration: none;
+  color: black;
+  transition: 0.3s ease;
+}
+
+a:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+}
+
+:global(.image-card) {
+  border-radius: 8px 8px 0 0;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.container-card {
+  padding: 20px 23px 35px;
+}
+</style>
