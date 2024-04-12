@@ -1,24 +1,30 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import { Rating, PriceKitchen, ItemFoodCard } from '@/components'
-import { PARTNER } from '@/utils'
+import { Rating, PriceKitchen, ItemFoodCard, Sort } from '@/components'
+import { PARTNER, SORT_OPTIONS, sortArrayObject } from '@/utils'
 import type { FoodItem } from '@/types'
 
 const $route = useRoute()
 const router = useRouter()
 const partner = $route.params[PARTNER]
 const menuData = ref<FoodItem[] | undefined>(undefined)
+const sortOption = ref<string>(SORT_OPTIONS[0].value)
 
 onMounted(() => {
   import(`@/db/${partner}.json`)
     .then((module) => {
       menuData.value = module.default
+      sortArrayObject(menuData.value || [], sortOption.value === 'cheap' ? 'asc' : 'desc', 'price')
     })
     .catch(() => {
       router.push({ name: 'NotFoundView' })
     })
+})
+
+watch(sortOption, (option) => {
+  sortArrayObject(menuData.value || [], option === 'cheap' ? 'asc' : 'desc', 'price')
 })
 </script>
 
@@ -32,6 +38,7 @@ onMounted(() => {
         kitchen: 'Italian'
       }"
     />
+    <Sort @change="(option) => (sortOption = option)" :options="SORT_OPTIONS" />
   </div>
   <div v-if="menuData" class="cards">
     <ItemFoodCard v-for="item in menuData" :key="item.id" v-bind="item" />

@@ -24,7 +24,7 @@ defineProps<FoodItem>()
         </template>
         В корзину
       </Button>
-      <strong class="card-price-bold">545 ₽</strong>
+      <strong class="card-price-bold">{{ price }} ₽</strong>
     </div>
   </div>
 </template>
