@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import { paths } from '@/utils'
+import { PARTNER, paths } from '@/utils'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,6 +11,21 @@ const router = createRouter({
       component: HomeView,
       meta: {
         title: paths.home.title
+      }
+    },
+    {
+      path: `/:${PARTNER}`,
+      component: () => import('@/views/PartnerMenu.vue'),
+      meta: {
+        title: 'Меню партнера'
+      }
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      component: () => import('@/views/NotFoundView.vue'),
+      name: 'NotFoundView',
+      meta: {
+        title: 'Страница не найдена'
       }
     }
   ]

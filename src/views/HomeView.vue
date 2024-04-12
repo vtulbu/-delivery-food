@@ -17,14 +17,7 @@ onMounted(() => {
   <PartnersContainer>
     <Transition>
       <div v-if="infoPartners">
-        <PartnerCard
-          v-for="{ products, ...rest } in infoPartners"
-          :key="rest.name"
-          v-bind="{
-            to: products.split('.')[0],
-            ...rest
-          }"
-        />
+        <PartnerCard v-for="partner in infoPartners" :key="partner.name" v-bind="partner" />
       </div>
     </Transition>
   </PartnersContainer>

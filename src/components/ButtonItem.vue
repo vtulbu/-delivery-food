@@ -7,7 +7,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <button @click="$emit('click')" :class="[props.variant === SECONDARY ? 'secondary' : 'primary']">
+  <button :class="[props.variant === SECONDARY ? 'secondary' : 'primary']">
     <span v-if="$slots[ICON_LEFT]">
       <slot :name="ICON_LEFT"></slot>
     </span>
@@ -47,5 +47,19 @@ span {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+button {
+  transition: all 0.3s;
+}
+
+button:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+  transform: scale(0.98);
 }
 </style>

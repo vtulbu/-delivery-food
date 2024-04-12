@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { addSpaces } from '@/utils'
 defineProps<{
   price: number
   kitchen: string
@@ -6,8 +7,10 @@ defineProps<{
 </script>
 
 <template>
-  <span> {{ price }} ₽ </span>
-  <span> {{ kitchen }} </span>
+  <div>
+    <span>От {{ addSpaces(price) }} ₽ </span>
+    <span> {{ kitchen }} </span>
+  </div>
 </template>
 
 <style scoped>

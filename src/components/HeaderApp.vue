@@ -22,7 +22,7 @@ import { Button, Input } from '@components'
   </header>
 </template>
 
-<style>
+<style scoped>
 header {
   margin-bottom: 40px;
   display: flex;
@@ -30,14 +30,15 @@ header {
   gap: 15px;
   max-width: var(--max-width);
   margin: 0 auto;
+  padding: 0 20px;
 }
 
-button {
+header :deep(button) {
   order: 2;
   margin-left: auto;
 }
 
-header div {
+header :deep(div) {
   order: 3;
   flex: 1 1 100%;
 }
@@ -47,11 +48,11 @@ header div {
     gap: 30px;
   }
 
-  button {
+  header :deep(button) {
     order: 3;
   }
 
-  header > div {
+  header :deep(div) {
     order: 2;
     flex: 1 1 auto;
   }

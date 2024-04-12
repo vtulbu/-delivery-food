@@ -7,3 +7,11 @@ export interface PartnerInfo {
   image: string
   products: string
 }
+
+export interface FoodItem {
+  id: string
+  name: string
+  description: string
+  price: number
+  image: string
+}
