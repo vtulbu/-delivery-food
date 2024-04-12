@@ -7,6 +7,7 @@
 
   --light-silver: #d9d9d9;
   --dark-charcoal: #30342c;
+  --davys-grey: #595959;
 
   --normal-font-size: 1rem;
   --max-width: 1200px;
@@ -18,16 +19,10 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 40px 20px;
+  padding-top: 40px;
   min-width: 375px;
 }
 
 a {
   text-decoration: none;
-}
-
-@media (min-width: 768px) {
-  body {
-    padding: 40px;
-  }
 }
