@@ -7,7 +7,13 @@ import { Header, Footer } from '@components'
 <template>
   <Header />
   <main>
-    <RouterView />
+    <RouterView v-slot="{ Component, route }">
+      <Transition name="fade" mode="out-in">
+        <div :key="route.name || ''">
+          <component :is="Component"></component>
+        </div>
+      </Transition>
+    </RouterView>
   </main>
   <Footer />
 </template>
@@ -22,5 +28,13 @@ main {
 main section {
   max-width: var(--max-width);
   margin: auto;
+}
+
+.fade-enter-active {
+  transition: all 500ms ease-out;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
