@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { Button, LazyLoadingImage } from '@components'
 import { ShoppingCartWhite } from '@icons'
+import { shoppingCartStore } from '@/store/cart'
 import type { FoodItem } from '@/types'
 
 defineProps<FoodItem>()
+
+const { addToCart } = shoppingCartStore()
 </script>
 
 <template>
@@ -18,7 +21,17 @@ defineProps<FoodItem>()
       </div>
     </div>
     <div class="card-button">
-      <Button @click="console.log('clicked')">
+      <Button
+        @click="
+          addToCart({
+            id,
+            name,
+            price,
+            quantity: 1,
+            image
+          })
+        "
+      >
         <template #icon_right>
           <ShoppingCartWhite />
         </template>
