@@ -23,3 +23,8 @@ export interface CartItem {
   quantity: number
   image: string
 }
+
+export interface SearchItem {
+  name: string
+  keys: string[]
+}

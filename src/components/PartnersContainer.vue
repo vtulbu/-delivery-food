@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import { Input } from '@components'
 import { SearchIcon } from '@icons'
+
+defineEmits<{
+  (event: 'input', value: string): void
+}>()
 </script>
 
 <template>
   <section>
     <div>
       <h2>Рестораны</h2>
-      <Input placeholder="Поиск блюд и ресторанов" id="search-restaurants">
+      <Input
+        placeholder="Поиск блюд и ресторанов"
+        id="search-restaurants"
+        :oninput="(e: InputEvent) => $emit('input', (e.target as HTMLInputElement).value)"
+      >
         <template #icon_left>
           <SearchIcon />
         </template>

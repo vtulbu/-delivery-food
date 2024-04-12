@@ -44,7 +44,7 @@ a:hover {
   transform: scale(1.02);
 }
 
-a::v-deep img {
+a :deep(img) {
   border-radius: 8px 8px 0 0;
   width: 100%;
   height: 250px;
