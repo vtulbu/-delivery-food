@@ -12,7 +12,7 @@ import {
 } from '@/components'
 import { PARTNER, SORT_OPTIONS, sortArrayObject } from '@/utils'
 import { ShoppingCart } from '@icons'
-import type { FoodItem } from '@/types'
+import { type PartnerInfo, type FoodItem } from '@/types'
 import { shoppingCartStore, modalState } from '@/store'
 
 const $route = useRoute()
@@ -23,15 +23,24 @@ const menuData = ref<FoodItem[] | undefined>(undefined)
 const sortOption = ref<string>(SORT_OPTIONS[0].value)
 const { openModal } = modalState()
 
+const infoPartner = ref<PartnerInfo | undefined>(undefined)
+
 onMounted(() => {
   import(`@/db/${partner}.json`)
     .then((module) => {
       menuData.value = module.default
       sortArrayObject(menuData.value || [], sortOption.value === 'cheap' ? 'asc' : 'desc', 'price')
     })
+
     .catch(() => {
       router.push({ name: 'NotFoundView' })
     })
+
+  import(`@/db/partners.json`).then((module) => {
+    infoPartner.value = module.partners.find(
+      (partnerInfo: PartnerInfo) => partnerInfo.products.split('.')[0] === partner
+    )
+  })
 })
 
 watch(sortOption, (option) => {
@@ -40,14 +49,16 @@ watch(sortOption, (option) => {
 </script>
 
 <template>
-  <div class="heading">
-    <div class="partner-info">
-      <h2>Partner Menu</h2>
-      <Rating :stars="10" />
+  <section class="heading">
+    <div class="partner-info" v-if="infoPartner">
+      <h2>
+        {{ infoPartner.name }}
+      </h2>
+      <Rating :stars="infoPartner.stars" />
       <PriceKitchen
         v-bind="{
-          price: 10,
-          kitchen: 'Italian'
+          price: infoPartner.price,
+          kitchen: infoPartner.kitchen
         }"
       />
     </div>
@@ -60,16 +71,17 @@ watch(sortOption, (option) => {
       </Button>
       <Sort @change="(option) => (sortOption = option)" :options="SORT_OPTIONS" />
     </div>
-  </div>
-  <div v-if="menuData" class="cards">
+  </section>
+  <section v-if="menuData" class="cards">
     <ItemFoodCard v-for="item in menuData" :key="item.id" v-bind="item" />
-  </div>
+  </section>
   <SelectedItemsCartModal />
 </template>
 
 <style scoped>
 h2 {
   margin: 0;
+  flex: 1 1 100%;
 }
 
 .heading {
@@ -82,7 +94,8 @@ h2 {
 .partner-info {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .cart-sort-container {
@@ -101,6 +114,13 @@ h2 {
 
   :deep(.container-card) {
     flex-basis: 49%;
+  }
+}
+
+@media (min-width: 768px) {
+  h2 {
+    flex: 1 1 auto;
+    font-size: 36px;
   }
 }
 
