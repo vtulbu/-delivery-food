@@ -19,7 +19,11 @@ const { closeModal } = modalState()
           <LazyLoadingImage :src="item.image" :alt="item.name" class="cart-img" />
           <div class="product-details">
             <p class="product-name">{{ item.name }}</p>
-            <p class="product-quantity">Количество: {{ item.quantity }}</p>
+            <div class="quantity">
+              <Button @click="cart.decrementQuantity(item.id)" variant="secondary">-</Button>
+              <p class="product-quantity">Количество: {{ item.quantity }}</p>
+              <Button @click="cart.incrementQuantity(item.id)" variant="secondary">+</Button>
+            </div>
             <p>Total: ₽{{ item.price * item.quantity }}</p>
           </div>
           <Button @click="cart.removeFromCart(item.id)" class="delete-button">Delete</Button>
@@ -55,6 +59,17 @@ h2 {
   font-size: 1.2rem;
   border-top: 1px solid var(--light-silver);
   margin-top: 20px;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.quantity :deep(button) {
+  margin-left: 0;
 }
 
 .empty-cart {

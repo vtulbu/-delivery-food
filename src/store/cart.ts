@@ -34,6 +34,20 @@ export const shoppingCartStore = defineStore('cart', {
     removeAllFromCart() {
       this.cart = []
       localStorage.setItem('cart', JSON.stringify(this.cart))
+    },
+    decrementQuantity(id: string) {
+      const item = this.cart.find((i) => i.id === id)
+      if (item && item.quantity > 1) {
+        item.quantity--
+      }
+      localStorage.setItem('cart', JSON.stringify(this.cart))
+    },
+    incrementQuantity(id: string) {
+      const item = this.cart.find((i) => i.id === id)
+      if (item) {
+        item.quantity++
+      }
+      localStorage.setItem('cart', JSON.stringify(this.cart))
     }
   }
 })
