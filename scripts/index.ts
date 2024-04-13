@@ -12,11 +12,15 @@ import { FoodItem, PartnerInfo, SearchItem } from '../src/types'
 
     items.push({
       name: p.name,
-      keys: menu.flatMap((item) => {
-        const split = item.name.toLowerCase().split(' ')
+      keys: [
+        p.name.toLowerCase(),
+        ...menu.flatMap((item) => {
+          const splitName = item.name.toLowerCase().split(/[\s,.]+/)
+          const splitDescription = item.description.toLowerCase().split(/[\s,.]+/)
 
-        return split
-      })
+          return [...splitName, ...splitDescription]
+        })
+      ]
     })
   }
   items.forEach((item) => {
