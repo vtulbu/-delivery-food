@@ -106,11 +106,11 @@ div {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    justify-content: space-between;
+    gap: 20px;
   }
 
-  div a {
-    flex-basis: 49%;
+  div :deep(a) {
+    flex-basis: 48%;
   }
 }
 

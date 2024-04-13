@@ -40,6 +40,7 @@ onMounted(() => {
     infoPartner.value = module.partners.find(
       (partnerInfo: PartnerInfo) => partnerInfo.products.split('.')[0] === partner
     )
+    document.title = `${document.title} - ${infoPartner.value?.name || ''}`
   })
 })
 

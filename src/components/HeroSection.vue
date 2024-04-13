@@ -24,7 +24,7 @@ h1 {
   font-style: normal;
   font-weight: 800;
   font-size: 24px;
-  line-height: 28px;
+  line-height: 1.4;
   color: var(--dark-charcoal);
 }
 
@@ -45,6 +45,7 @@ p {
 
   h1 {
     font-size: 36px;
+    line-height: 46px;
   }
 }
 
