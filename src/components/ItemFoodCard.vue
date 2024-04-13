@@ -69,6 +69,19 @@ h3 {
   object-fit: cover;
 }
 
+:deep(.lazy-load-image) {
+  min-height: 280px;
+}
+
+:deep(img):hover {
+  cursor: pointer;
+  transform: scale(1.04);
+  transition: all 0.5s;
+  height: 270px;
+  width: 100%;
+  border-radius: 8px;
+}
+
 .card-text {
   padding: 20px 25px 0 25px;
   display: flex;
