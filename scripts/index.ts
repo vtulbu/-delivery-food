@@ -19,6 +19,12 @@ import { FoodItem, PartnerInfo, SearchItem } from '../src/types'
       })
     })
   }
+  items.forEach((item) => {
+    //remove one word keys
+    item.keys = item.keys.filter((key) => key.length > 1)
+    //remove duplicates
+    item.keys = Array.from(new Set(item.keys))
+  })
 
   fs.writeFileSync('./src/db/search.json', JSON.stringify(items, null, 2))
 })()

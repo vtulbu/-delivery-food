@@ -4,13 +4,19 @@ import debounce from 'lodash.debounce'
 import { Hero, PartnersContainer, PartnerCard } from '@/components'
 import type { PartnerInfo, SearchItem } from '@/types'
 
+const allPartnersInfo = ref<PartnerInfo[] | undefined>(undefined)
 const infoPartners = ref<PartnerInfo[] | undefined>(undefined)
 const searchKeys = ref<SearchItem[]>([])
 
 onMounted(() => {
-  import('@/db/partners.json').then((module) => {
-    infoPartners.value = module.partners
-  })
+  import('@/db/partners.json')
+    .then((module) => {
+      allPartnersInfo.value = module.partners
+      infoPartners.value = module.partners
+    })
+    .catch((error) => {
+      console.error(error)
+    })
 })
 
 const onInput = debounce(async (value: string) => {
@@ -19,15 +25,22 @@ const onInput = debounce(async (value: string) => {
     searchKeys.value = file.default
   }
 
-  const partners = searchKeys.value.filter((item) => item.keys.includes(value.toLowerCase()))
-
-  if (partners.length === 0) {
-    infoPartners.value = undefined
+  if (!value) {
+    infoPartners.value = allPartnersInfo.value
     return
   }
 
-  infoPartners.value = infoPartners.value?.filter((partner) =>
-    partners.some((item) => item.name === partner.name)
+  const selectedPartners = searchKeys.value.filter((item) =>
+    item.keys.includes(value.toLowerCase())
+  )
+
+  if (selectedPartners.length === 0) {
+    infoPartners.value = []
+    return
+  }
+
+  infoPartners.value = allPartnersInfo.value?.filter((partner) =>
+    selectedPartners.some((item) => item.name === partner.name)
   )
 }, 300)
 </script>
@@ -35,23 +48,57 @@ const onInput = debounce(async (value: string) => {
 <template>
   <Hero />
   <PartnersContainer @input="onInput">
-    <Transition>
-      <div v-if="infoPartners">
+    <Transition name="cards">
+      <div v-if="infoPartners && infoPartners.length">
         <PartnerCard v-for="partner in infoPartners" :key="partner.name" v-bind="partner" />
+      </div>
+      <div v-else-if="!infoPartners">
+        <p>
+          Не смогли загрузить данные.
+          <br />
+          Попробуйте ещё раз
+        </p>
+      </div>
+      <div v-else-if="!infoPartners.length">
+        <p>
+          По вашему запросу ничего не найдено.
+          <br />
+          Попробуйте что-то другое
+        </p>
+      </div>
+      <div v-else>
+        <p>Что то пошло не по плану</p>
       </div>
     </Transition>
   </PartnersContainer>
 </template>
 
 <style scoped>
-.v-enter-active,
-.v-leave-active {
-  transition: transform 0.8s;
+.cards-enter-active {
+  transition:
+    transform 250ms ease,
+    opacity 100ms ease;
 }
 
-.v-enter-from,
-.v-leave-to {
-  transform: translateY(100%);
+.cards-enter-from {
+  opacity: 0;
+  transform: translateY(150px);
+}
+
+.cards-leave-to {
+  opacity: 0;
+  transform: translateY(-250px);
+}
+
+p {
+  text-align: center;
+  font-size: 1.5rem;
+  width: 100%;
+  margin-top: 60px;
+}
+
+div {
+  min-height: 400px;
 }
 
 @media (min-width: 624px) {
