@@ -26,8 +26,9 @@ const { closeModal } = modalState()
         </div>
       </TransitionGroup>
     </div>
-    <div>
+    <div class="total-container">
       <p class="total">Total: ₽{{ cart.cartTotal }}</p>
+      <Button @click="cart.removeAllFromCart"> Очистить корзину </Button>
     </div>
   </Modal>
 </template>
@@ -49,11 +50,11 @@ h2 {
   margin-left: auto;
 }
 
-.total {
+.total-container {
   font-weight: 800;
   font-size: 1.2rem;
   border-top: 1px solid var(--light-silver);
-  padding-top: 20px;
+  margin-top: 20px;
 }
 
 .empty-cart {

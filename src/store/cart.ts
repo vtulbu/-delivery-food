@@ -30,6 +30,10 @@ export const shoppingCartStore = defineStore('cart', {
         this.cart.splice(index, 1)
       }
       localStorage.setItem('cart', JSON.stringify(this.cart))
+    },
+    removeAllFromCart() {
+      this.cart = []
+      localStorage.setItem('cart', JSON.stringify(this.cart))
     }
   }
 })
