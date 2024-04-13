@@ -15,7 +15,7 @@ const { closeModal } = modalState()
     </div>
     <div v-else>
       <TransitionGroup name="list">
-        <div v-for="item in cart.$state.cart" :key="item.id">
+        <div v-for="item in cart.$state.cart" :key="item.id" class="item-food">
           <LazyLoadingImage :src="item.image" :alt="item.name" class="cart-img" />
           <div class="product-details">
             <p class="product-name">{{ item.name }}</p>
@@ -26,7 +26,7 @@ const { closeModal } = modalState()
             </div>
             <p>Total: ₽{{ item.price * item.quantity }}</p>
           </div>
-          <Button @click="cart.removeFromCart(item.id)" class="delete-button">Delete</Button>
+          <Button @click="cart.removeFromCart(item.id)" class="delete-button">Удалить</Button>
         </div>
       </TransitionGroup>
     </div>
@@ -44,7 +44,7 @@ h2 {
 }
 
 :deep(.cart-img) {
-  width: 100%;
+  border-radius: 8px;
   height: 100px;
   object-fit: contain;
   min-height: unset;
@@ -74,6 +74,24 @@ h2 {
 
 .empty-cart {
   text-align: center;
+}
+
+.item-food {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--light-silver);
+}
+
+.item-food:last-of-type {
+  border-bottom: none;
+}
+
+.product-name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 0.5;
 }
 
 .list-move,
